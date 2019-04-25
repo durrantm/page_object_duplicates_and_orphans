@@ -7,6 +7,8 @@
 * Locators file format is name : 'locator'
 * Specs are called *_spec.rb and can be in subdirectories
 
+## Code:
+
     before :each do
       load_locators
     end
