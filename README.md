@@ -1,8 +1,8 @@
 ## Page Object Duplicates and Orphans
 
-  before :each do
-    load_locators
-  end 
+    before :each do
+      load_locators
+    end
 
     it 'does not have duplicates' do
       if @keys.uniq.count != @keys.count
