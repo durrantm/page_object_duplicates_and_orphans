@@ -2,21 +2,24 @@ require 'rspec'
 
 describe 'Page Objects locator yml file' do
 
+  let (:keys) {[]}
+  let (:pairs) {[]}
+
   before :each do
     load_locators
   end
 
   it 'does not have duplicates' do
-    if @keys.uniq.count != @keys.count
-      dupe_keys = @keys.select{|n| @keys.count(n) > 1}.uniq
+    if keys.uniq.count != keys.count
+      dupe_keys = keys.select{|n| keys.count(n) > 1}.uniq
       dupe_keys.each do |key|
-        @pairs.each do |pair|
+        pairs.each do |pair|
           p "#{key.to_sym} : #{pair[key]}" if pair[key]
         end
       end
     end
 
-    expect(@keys.uniq.count).to (eq @keys.count),
+    expect(keys.uniq.count).to (eq keys.count),
       lambda {"Duplicate page object keys found! #{dupe_keys}"}
 
   end
@@ -24,7 +27,7 @@ describe 'Page Objects locator yml file' do
   it "uses all its locator keys" do
     files = Dir.glob("**/*_spec.rb")
     unused_keys = []
-    @keys.each do |key|
+    keys.each do |key|
       @key_used = false
       files.each {|file| search_file_for_key(file, key) }
       unused_keys << key unless @key_used
@@ -45,13 +48,10 @@ describe 'Page Objects locator yml file' do
 
   def load_locators
     locators_file = File.open('locators.yml')
-    @pairs = []
-    @keys = []
-
     locators_file.each_line do |line|
       words = line.split(': ')
-      @pairs << {words[0] => words[1]}
-      @keys << words[0]
+      pairs << {words[0] => words[1]}
+      keys << words[0]
     end
     locators_file.close
   end
