@@ -4,7 +4,7 @@
 
 * Page objects are in a locators.yml file
 * Locators file is one locator per line
-* Locatgor file format is name : 'locator'
+* Locators file format is name : 'locator'
 * Specs are called *_spec.rb and can be in subdirectories
 
     before :each do
